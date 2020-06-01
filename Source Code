@@ -1,0 +1,2029 @@
+import time
+import datetime
+
+#Datetime format
+dateformat=str("%d %B %Y")
+Date=datetime.date.today().strftime(dateformat)
+
+#print top of ticket's stamp in Tickets file
+file = open("Tickets.txt","a")
+
+file.write("----------------------")
+file.write("\n")
+file.write("TICKET\t")
+file.write(Date)
+file.write("\n")
+
+file.close()
+
+#Specify the rows(Business and Economy class) and columns number
+Brows = 2
+Erows = 8
+cols = 5
+listB1 = [[0 for j in range(cols)]for i in range(Brows)]
+listB2 = [[0 for j in range(cols)]for i in range(Brows)]
+listB3 = [[0 for j in range(cols)]for i in range(Brows)]
+listB4 = [[0 for j in range(cols)]for i in range(Brows)]
+listB5 = [[0 for j in range(cols)]for i in range(Brows)]
+listB6 = [[0 for j in range(cols)]for i in range(Brows)]
+listB7 = [[0 for j in range(cols)]for i in range(Brows)]
+listB8 = [[0 for j in range(cols)]for i in range(Brows)]
+
+listE1 = [[0 for j in range(cols)]for i in range(Erows)]
+listE2 = [[0 for j in range(cols)]for i in range(Erows)]
+listE3 = [[0 for j in range(cols)]for i in range(Erows)]
+listE4 = [[0 for j in range(cols)]for i in range(Erows)]
+listE5 = [[0 for j in range(cols)]for i in range(Erows)]
+listE6 = [[0 for j in range(cols)]for i in range(Erows)]
+listE7 = [[0 for j in range(cols)]for i in range(Erows)]
+listE8 = [[0 for j in range(cols)]for i in range(Erows)]
+
+#Error message
+esrymsg=str("The Economy Class is full \nAre you acceptable to be changed in the Business Class ?\nPress 'B' to purchase ticket for Business class\nPress 'M' to return Main Menu")
+bsrymsg=str("The Business Class is full \nAre you acceptable to be changed in the Economy Class ?\nPress 'E' to purchase ticket for Economy class\nPress 'M' to return Main Menu")
+seattakenmsg=str("The seat had been taken, please choose another seat.")
+
+
+
+#print loading 
+def load():
+    print("\n           Loading")
+    for p in range(3):
+        time.sleep(0.4)
+        print("              .")
+        
+def business():
+    print('''       BUSINESS CLASS
+--------------------------
+       1  2  3  4  5''')
+def economy():
+    print('''      ECONOMY CLASS"
+--------------------------"
+       1  2  3  4  5''')
+
+#print ticket after purchase
+def ticketdetails(name,fid,fromto,triptime,seatclass,col,row):
+    print("\n Here is your ticket details:\n")
+    print("*"*35)
+    print("Name \t\t:",name)
+    print("Ferry ID \t:",fid)
+    print("Date \t\t:",Date)
+    print("Trip time \t:",triptime)
+    print(fromto)
+    print(seatclass, "Row ",row, " Column ", col)
+    print("*"*35)
+    print("\nRedirecting back to Main menu in 10 seconds")
+    time.sleep(10)
+    print("\n")
+
+
+
+#Function for purchasing business class ticket and print into the Tickets file
+def B1():
+    while True:
+        col = input("Enter column from 1 to 5 = ")
+        row = input("Enter row from 1 to 2 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid Option!")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1) and (col <= 5):
+            if(row >= 1) and (row <= 2):
+                col = col - 1
+                row = row - 1
+                if(listB1[row][col] == 0):
+                    listB1[row][col] = 1
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB1[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 001\n")
+                    file.write("Source      : Penang\n")
+                    file.write("Destination : Langkawi\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 10:00a.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("BUSINESS CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="001"
+                    fromto="From Penang to Langkawi"
+                    triptime="10:00a.m."
+                    seatclass="Business class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    B1()
+                    break
+            else:
+                print("invalid input")
+                B1()
+                break
+        else:
+            print("invalid input")
+            B1()
+            break
+def B2():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 2 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 2):
+                col = col - 1
+                row = row - 1
+                if(listB2[row][col] == 0):
+                    listB2[row][col] = 1
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB2[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 002\n")
+                    file.write("Source      : Penang\n")
+                    file.write("Destination : Langkawi\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 12:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("BUSINESS CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="002"
+                    fromto="From Penang to Langkawi"
+                    triptime="12:00p.m."
+                    seatclass="Business class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    B2()
+                    break
+            else:
+                print("invalid input")
+                B2()
+                break
+        else:
+            print("invalid input")
+            B2()
+            break
+def B3():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 2 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 2):
+                col = col - 1
+                row = row - 1
+                if(listB3[row][col] == 0):
+                    listB3[row][col] = 1
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB3[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 003\n")
+                    file.write("Source      : Penang\n")
+                    file.write("Destination : Langkawi\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 02:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("BUSINESS CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="003"
+                    fromto="From Penang to Langkawi"
+                    triptime="02:00p.m."
+                    seatclass="Business class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    B3()
+                    break
+            else:
+                print("invalid input")
+                B3()
+                break
+        else:
+            print("invalid input")
+            B3()
+            break
+def B4():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 2 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 2):
+                col = col - 1
+                row = row - 1
+                if(listB4[row][col] == 0):
+                    listB4[row][col] = 1
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB4[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 004\n")
+                    file.write("Source      : Penang\n")
+                    file.write("Destination : Langkawi\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 04:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("BUSINESS CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+                    print("You have purchased a ticket ")
+                    fid="004"
+                    fromto="From Penang to Langkawi"
+                    triptime="04:00p.m."
+                    seatclass="Business class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    B4()
+                    break
+            else:
+                print("invalid input")
+                B4()
+                break
+        else:
+            print("invalid input")
+            B4()
+            break
+def B5():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 2 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 2):
+                col = col - 1
+                row = row - 1
+                if(listB5[row][col] == 0):
+                    listB5[row][col] = 1
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB5[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 005\n")
+                    file.write("Source      : Langkawi\n")
+                    file.write("Destination : Penang\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 11:00a.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("BUSINESS CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="005"
+                    fromto="From Langkawi to Penang"
+                    triptime="11:00a.m."
+                    seatclass="Business class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    B5()
+                    break
+            else:
+                print("invalid input")
+                B5()
+                break
+        else:
+            print("invalid input")
+            B5()
+            break
+def B6():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 2 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 2):
+                col = col - 1
+                row = row - 1
+                if(listB6[row][col] == 0):
+                    listB6[row][col] = 1
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB6[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 006\n")
+                    file.write("Source      : Langkawi\n")
+                    file.write("Destination : Penang\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 01:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("BUSINESS CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="006"
+                    fromto="From Langkawi to Penang"
+                    triptime="01:00p.m."
+                    seatclass="Business class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    B6()
+                    break
+            else:
+                print("invalid input")
+                B6()
+                break
+        else:
+            print("invalid input")
+            B6()
+            break
+def B7():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 2 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 2):
+                col = col - 1
+                row = row - 1
+                if(listB7[row][col] == 0):
+                    listB7[row][col] = 1
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB7[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 007\n")
+                    file.write("Source      : Langkawi\n")
+                    file.write("Destination : Penang\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 03:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("BUSINESS CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="007"
+                    fromto="From Langkawi to Penang"
+                    triptime="03:00p.m."
+                    seatclass="Business class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    B7()
+                    break
+            else:
+                print("invalid input")
+                B7()
+                break
+        else:
+            print("invalid input")
+            B7()
+            break
+def B8():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 2 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 2):
+                col = col - 1
+                row = row - 1
+                if(listB8[row][col] == 0):
+                    listB8[row][col] = 1
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB8[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 008\n")
+                    file.write("Source      : Langkawi\n")
+                    file.write("Destination : Penang\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 05:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("BUSINESS CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="008"
+                    fromto="From Langkawi to Penang"
+                    triptime="05:00p.m."
+                    seatclass="Business class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    B8()
+                    break
+            else:
+                print("invalid input")
+                B8()
+                break
+        else:
+            print("invalid input")
+            B8()
+            break
+
+#Function for purchasing Economy Class and print into Ticket file
+def E1():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 8 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 8):
+                col = col - 1
+                row = row - 1
+                if(listE1[row][col] == 0):
+                    listE1[row][col] = 1
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE1[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 001\n")
+                    file.write("Source      : Penang\n")
+                    file.write("Destination : Langkawi\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 10:00a.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("ECONOMY CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="001"
+                    fromto="From Penang to Langkawi"
+                    triptime="10:00a.m."
+                    seatclass="Economy class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    E1()
+                    break
+            else:
+                print("invalid input")
+                E1()
+                break
+        else:
+            print("invalid input")
+            E1()
+            break
+def E2():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 8 = ")
+        try:
+           val = int(col)
+           val = int(row)
+           break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 8):
+                col = col - 1
+                row = row - 1
+                if(listE2[row][col] == 0):
+                    listE2[row][col] = 1
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE2[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 002\n")
+                    file.write("Source      : Penang\n")
+                    file.write("Destination : Langkawi\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 12:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("ECONOMY CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="002"
+                    fromto="From Penang to Langkawi"
+                    triptime="12:00p.m."
+                    seatclass="Economy class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    E2()
+                    break
+            else:
+                print("invalid input")
+                E2()
+                break
+        else:
+            print("invalid input")
+            E2()
+            break
+def E3():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 8 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 8):
+                col = col - 1
+                row = row - 1
+                if(listE3[row][col] == 0):
+                    listE3[row][col] = 1
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE3[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 003\n")
+                    file.write("Source      : Penang\n")
+                    file.write("Destination : Langkawi\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 02:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("ECONOMY CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="003"
+                    fromto="From Penang to Langkawi"
+                    triptime="02:00p.m."
+                    seatclass="Economy class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    E3()
+                    break
+            else:
+                print("invalid input")
+                E3()
+                break
+        else:
+            print("invalid input")
+            E3()
+            break
+def E4():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 8 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 8):
+                col = col - 1
+                row = row - 1
+                if(listE4[row][col] == 0):
+                    listE4[row][col] = 1
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE4[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 004\n")
+                    file.write("Source      : Penang\n")
+                    file.write("Destination : Langkawi\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 04:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("ECONOMY CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="004"
+                    fromto="From Penang to Langkawi"
+                    triptime="04:00p.m."
+                    seatclass="Economy class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    E4()
+                    break
+            else:
+                print("invalid input")
+                E4()
+                break
+        else:
+            print("invalid input")
+            E4()
+            break
+def E5():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 8 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 8):
+                col = col - 1
+                row = row - 1
+                if(listE5[row][col] == 0):
+                    listE5[row][col] = 1
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE5[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 005\n")
+                    file.write("Source      : Langkawi\n")
+                    file.write("Destination : Penang\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 11:00a.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("ECONOMY CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="005"
+                    fromto="From Langkawi to Penang"
+                    triptime="11:00a.m."
+                    seatclass="Economy class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    E5()
+                    break
+            else:
+                print("invalid input")
+                E5()
+                break
+        else:
+            print("invalid input")
+            E5()
+            break
+def E6():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 8 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 8):
+                col = col - 1
+                row = row - 1
+                if(listE6[row][col] == 0):
+                    listE6[row][col] = 1
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE6[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 006\n")
+                    file.write("Source      : Langkawi\n")
+                    file.write("Destination : Penang\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 01:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("ECONOMY CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="006"
+                    fromto="From Langkawi to Penang"
+                    triptime="01:00p.m."
+                    seatclass="Economy class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    E6()
+                    break
+            else:
+                print("invalid input")
+                E6()
+                break
+        else:
+            print("invalid input")
+            E6()
+            break
+def E7():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 8 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 8):
+                col = col - 1
+                row = row - 1
+                if(listE7[row][col] == 0):
+                    listE7[row][col] = 1
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE7[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 007\n")
+                    file.write("Source      : Langkawi\n")
+                    file.write("Destination : Penang\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 03:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("ECONOMY CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="007"
+                    fromto="From Langkawi to Penang"
+                    triptime="03:00p.m."
+                    seatclass="Economy class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    E7()
+                    break
+            else:
+                print("invalid input")
+                E7()
+                break
+        else:
+            print("invalid input")
+            E7()
+            break
+def E8():
+    while True:
+        col = input("Please insert the column from 1 to 5 = ")
+        row = input("Please insert the row from 1 to 8 = ")
+        try:
+            val = int(col)
+            val = int(row)
+            break
+        except ValueError:
+            print("Invalid input")
+    while True:
+        col = int(col)
+        row = int(row)
+        if(col >= 1)and(col <= 5):
+            if(row >= 1)and(row <= 8):
+                col = col - 1
+                row = row - 1
+                if(listE8[row][col] == 0):
+                    listE8[row][col] = 1
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE8[i])
+                    col = col+1
+                    row = row+1
+                    col = str(col)
+                    row = str(row)
+                    file = open("Tickets.txt","a")
+                    
+                    name = input("Enter your name : ")
+                    
+                    file.write("\n")
+                    file.write("Name        : ")
+                    file.write(name)
+                    file.write("\n")
+                    file.write("Ferry ID    : 008\n")
+                    file.write("Source      : Langkawi\n")
+                    file.write("Destination : Penang\n")
+                    file.write("Date        : ")
+                    file.write(Date)
+                    file.write("\n")
+                    file.write("Time        : 05:00p.m.\n")
+                    file.write("Terminal    : Gate A\n")
+                    file.write("ECONOMY CLASS\n")
+                    file.write("Col : ")
+                    file.write(col+"\n")
+                    file.write("Row : ")
+                    file.write(row+"\n")
+                    file.write("\n")
+                    file.write("-------------------------- \n")
+                    
+                    file.close()
+
+                    print("You have purchased a ticket ")
+                    fid="008"
+                    fromto="From Langkawi to Penang"
+                    triptime="05:00p.m."
+                    seatclass="Economy class"
+                    ticketdetails(name,fid,fromto,triptime,seatclass,col,row)
+                    print("Please check the file for ticket details")
+                    break
+                else:
+                    print(seattakenmsg)
+                    E8()
+                    break
+            else:
+                print("invalid input")
+                E8()
+                break
+        else:
+            print("invalid input")
+            E8()
+            break
+
+#Function for printing the seat of each Ferry ID
+def F1():
+    print("--------------------------")
+    print("       Ferry ID : 001")
+    print("--------------------------")
+    print("   Date:",Date)
+    print("--------------------------")
+    print("    Penang to Langkawi")
+    print("--------------------------")
+    business()
+    for i in range(2):
+        print("  ",i+1,"-",listB1[i])
+    print("--------------------------")
+    economy()
+    for i in range(8):
+        print("  ",i+1,"-",listE1[i])
+    print("--------------------------")
+
+def F2():
+    print("--------------------------")
+    print("       Ferry ID : 002")
+    print("--------------------------")
+    print("   Date:",Date)
+    print("--------------------------")
+    print("    Penang to Langkawi")
+    print("--------------------------")
+    business()
+    for i in range(2):
+        print("  ",i+1,"-",listB2[i])
+    print("--------------------------")
+    economy()
+    for i in range(8):
+        print("  ",i+1,"-",listE2[i])
+    print("--------------------------")
+
+def F3():
+    print("--------------------------")
+    print("       Ferry ID : 003")
+    print("--------------------------")
+    print("   Date:",Date)
+    print("--------------------------")
+    print("    Penang to Langkawi")
+    print("--------------------------")
+    business()
+    for i in range(2):
+        print("  ",i+1,"-",listB3[i])
+    print("--------------------------")
+    economy()
+    for i in range(8):
+        print("  ",i+1,"-",listE3[i])
+    print("--------------------------")
+
+def F4():
+    print("--------------------------")
+    print("       Ferry ID : 004")
+    print("--------------------------")
+    print("   Date:",Date)
+    print("--------------------------")
+    print("    Penang to Langkawi")
+    print("--------------------------")
+    business()
+    for i in range(2):
+        print("  ",i+1,"-",listB4[i])
+    print("--------------------------")
+    economy()
+    for i in range(8):
+        print("  ",i+1,"-",listE4[i])
+    print("--------------------------")
+
+def F5():
+    print("--------------------------")
+    print("       Ferry ID : 005")
+    print("--------------------------")
+    print("   Date:",Date)
+    print("--------------------------")
+    print("    Langkawi to Penang")
+    print("--------------------------")
+    business()
+    for i in range(2):
+        print("  ",i+1,"-",listB5[i])
+    print("--------------------------")
+    economy()
+    for i in range(8):
+        print("  ",i+1,"-",listE5[i])
+    print("--------------------------")
+
+def F6():
+    print("--------------------------")
+    print("       Ferry ID : 006")
+    print("--------------------------")
+    print("   Date:",Date)
+    print("--------------------------")
+    print("    Langkawi to Penang")
+    print("--------------------------")
+    business()
+    for i in range(2):
+        print("  ",i+1,"-",listB6[i])
+    print("--------------------------")
+    economy()
+    for i in range(8):
+        print("  ",i+1,"-",listE6[i])
+    print("--------------------------")
+
+def F7():
+    print("--------------------------")
+    print("       Ferry ID : 007")
+    print("--------------------------")
+    print("   Date:",Date)
+    print("--------------------------")
+    print("    Langkawi to Penang")
+    print("--------------------------")
+    business()
+    for i in range(2):
+        print("  ",i+1,"-",listB7[i])
+    print("--------------------------")
+    economy()
+    for i in range(8):
+        print("  ",i+1,"-",listE7[i])
+    print("--------------------------")
+
+def F8():
+    print("--------------------------")
+    print("       Ferry ID : 008")
+    print("--------------------------")
+    print("   Date:",Date)
+    print("--------------------------")
+    print("    Langkawi to Penang")
+    print("--------------------------")
+    business()
+    for i in range(2):
+        print("  ",i+1,"-",listB8[i])
+    print("--------------------------")
+    economy()
+    for i in range(8):
+        print("  ",i+1,"-",listE8[i])
+    print("--------------------------")
+    
+#print for the available time of each ferry
+def Ferry_ID():
+    print("\n    Penang --> Langkawi")
+    print("    Ferry ID \t\t    Time") 
+    print("      001       ------    10:00a.m.")
+    print("      002       ------    12:00p.m.")
+    print("      003       ------    02:00p.m.")
+    print("      004       ------    04:00p.m.")
+    print("")
+    print("    Langkawi --> Penang")
+    print("    Ferry ID \t\t    Time") 
+    print("      005       ------    11:00a.m.")
+    print("      006       ------    01:00p.m.")
+    print("      007       ------    03:00p.m.")
+    print("      008       ------    05:00p.m.")
+
+#print for the Trip time and corresponding ferryID
+def trip_time():
+    print("\n    Penang --> Langkawi")
+    print("    Ferry ID \t\t    Time") 
+    print("      10:00a.m.       ------    Ferry001")
+    print("      12:00p.m.       ------    Ferry002")
+    print("      02:00p.m.       ------    Ferry003")
+    print("      04:00p.m.       ------    Ferry004")
+    print("")
+    print("    Langkawi --> Penang")
+    print("    Ferry ID \t\t    Time") 
+    print("      11:00a.m.       ------    Ferry005")
+    print("      01:00p.m.       ------    Ferry006")
+    print("      03:00p.m.       ------    Ferry007")
+    print("      05:00p.m.       ------    Ferry008")
+    
+#print submenu and ask user to insert input for purchase ticket for business or economy class or return to main menu
+def SubMenu():
+    print('''
+    PURCHASING MODULE
+    B – to purchase ticket for Business class
+    E – to purchase ticket for Economy class
+    M – to return to Main Menu''')
+
+#choice of seat in business class    
+    while True:
+        WE = input("\n    Please select option from above: ")
+        if(WE == "B") or (WE == "b"):
+            print("\n    BUSINESS CLASS")
+            load()
+            Ferry_ID()
+            Ferry_No = input("\n    Please select Ferry ID from 001 to 008: ")
+            if(Ferry_No == "001" or Ferry_No == "1"):
+                if(listB1 != [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("")
+                    print("       Ferry ID : 001")
+                    print("--------------------------")
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB1[i])
+                    print("--------------------------")
+                    B1()
+                elif(listB1 == [[1 for j in range(cols)]for i in range(Brows)])and(listE1 == [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("The Ferry is full")
+                else:
+                    print(bsrymsg)
+                    REV = input()
+                    if(REV != "E")and(REV != "e")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "E")or(REV == "e"):
+                        print("")
+                        print("       Ferry ID : 001")
+                        print("--------------------------")
+                        economy()
+                        for i in range(8):
+                            print(" ",i+1,"-",listE1[i])
+                        print("--------------------------")
+                        E1()
+                    if(REV == "M")or(REV == "m"):
+                        print("Next trip leaves in 2 hours")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "002" or Ferry_No == "2"):
+                if(listB2 != [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("")
+                    print("       Ferry ID : 002")
+                    print("--------------------------")
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB2[i])
+                    print("--------------------------")
+                    B2()
+                elif(listB2 == [[1 for j in range(cols)]for i in range(Brows)])and(listE2 == [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("The Ferry is full")
+                else:
+                    print(bsrymsg)
+                    REV = input()
+                    if(REV != "E")and(REV != "e")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "E")or(REV == "e"):
+                        print("       Ferry ID : 002")
+                        print("--------------------------")
+                        economy()
+                        for i in range(8):
+                            print(" ",i+1,"-",listE2[i])
+                        print("--------------------------")
+                        E2()
+                    if(REV == "M")or(REV == "m"):
+                        break
+                    break                       
+                break
+            if(Ferry_No == "003" or Ferry_No == "3"):
+                if(listB3 != [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("")
+                    print("       Ferry ID : 003")
+                    print("--------------------------")
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB3[i])
+                    print("--------------------------")
+                    B3()
+                elif(listB3 == [[1 for j in range(cols)]for i in range(Brows)])and(listE3 == [[1 for j in range(cols)]for i in range(Erows)]):
+                    print(bsrymsg)
+                    REV = input()
+                    if(REV != "E")and(REV != "e")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "E")or(REV == "e"):
+                        print("       Ferry ID : 003")
+                        print("--------------------------")
+                        economy()
+                        for i in range(8):
+                            print(" ",i+1,"-",listE3[i])
+                        print("--------------------------")
+                        E3()
+                    if(REV == "M")or(REV == "m"):
+                        print("Next trip leaves in 2 hours")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "004" or Ferry_No == "4"):
+                if(listB4 != [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("")
+                    print("       Ferry ID : 004")
+                    print("--------------------------")
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB4[i])
+                    print("--------------------------")
+                    B4()
+                elif(listB4 == [[1 for j in range(cols)]for i in range(Brows)])and(listE4 == [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("The Ferry is full")
+                else:
+                    print(bsrymsg)
+                    REV = input()
+                    if(REV != "E")and(REV != "e")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "E")or(REV == "e"):
+                        print("       Ferry ID : 004")
+                        print("--------------------------")
+                        economy()
+                        for i in range(8):
+                            print(" ",i+1,"-",listE4[i])
+                        print("--------------------------")
+                        E4()
+                    if(REV == "M")or(REV == "m"):
+                        print("No other trip after this trip")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "005" or Ferry_No == "5"):
+                if(listB5 != [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("")
+                    print("       Ferry ID : 005")
+                    print("--------------------------")
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB5[i])
+                    print("--------------------------")
+                    B5()
+                elif(listB5 == [[1 for j in range(cols)]for i in range(Brows)])and(listE5 == [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("The Ferry is full")
+                else:
+                    print(bsrymsg)
+                    REV = input()
+                    if(REV != "E")and(REV != "e")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "E")or(REV == "e"):
+                        print("       Ferry ID : 005")
+                        print("--------------------------")
+                        economy()
+                        for i in range(8):
+                            print(" ",i+1,"-",listE5[i])
+                        print("--------------------------")
+                        E5()
+                    if(REV == "M")or(REV == "m"):
+                        print("Next trip leaves in 2 hours")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "006" or Ferry_No == "6"):
+                if(listB6 != [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("")
+                    print("       Ferry ID : 006")
+                    print("--------------------------")
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB6[i])
+                    print("--------------------------")
+                    B6()
+                elif(listB6 == [[1 for j in range(cols)]for i in range(Brows)])and(listE6 == [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("The Ferry is full")
+                else:
+                    print(bsrymsg)
+                    print("Press M-to return Main Menu")
+                    REV = input()
+                    if(REV != "E")and(REV != "e")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "E")or(REV == "e"):
+                        print("       Ferry ID : 006")
+                        print("--------------------------")
+                        economy()
+                        for i in range(8):
+                            print(" ",i+1,"-",listE6[i])
+                        print("--------------------------")
+                        E6()
+                    if(REV == "M")or(REV == "m"):
+                        print("Next trip leaves in 2 hours")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "007" or Ferry_No == "7"):
+                if(listB7 != [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("")
+                    print("       Ferry ID : 007")
+                    print("--------------------------")
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB7[i])
+                    print("--------------------------")
+                    B7()
+                elif(listB7 == [[1 for j in range(cols)]for i in range(Brows)])and(listE7 == [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("The Ferry is full")
+                else:
+                    print(bsrymsg)
+                    REV = input()
+                    if(REV!= "E")and(REV != "e")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "E")or(REV == "e"):
+                        print("       Ferry ID : 007")
+                        print("--------------------------")
+                        economy()
+                        for i in range(8):
+                            print(" ",i+1,"-",listE7[i])
+                        print("--------------------------")
+                        E7()
+                    if(REV == "M")or(REV == "m"):
+                        print("Next trip leaves in 2 hours")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "008" or Ferry_No == "8"):
+                if(listB8 != [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("")
+                    print("       Ferry ID : 008")
+                    print("--------------------------")
+                    business()
+                    for i in range(2):
+                        print(" ",i+1,"-",listB8[i])
+                    print("--------------------------")
+                    B8()
+                elif(listB8 == [[1 for j in range(cols)]for i in range(Brows)])and(listE8 == [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("The Ferry is full")
+                else:
+                    print(bsrymsg)
+                    REV = input()
+                    if(REV != "E")and(REV != "e")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "E")or(REV == "e"):
+                        print("       Ferry ID :008")
+                        print("--------------------------")
+                        economy()
+                        for i in range(8):
+                            print(" ",i+1,"-",listE8[i])
+                        print("--------------------------")
+                        E8()
+                    if(REV == "M")or(REV == "m"):
+                        print("No other trip after this trip")
+                        break
+                    break                       
+                break
+            else:
+                print("invalid input!")
+            break
+        
+#choice of seat in economy class
+        elif(WE == "E") or (WE == "e"):
+            print("    ECONOMY CLASS")
+            load()
+            Ferry_ID()
+            Ferry_No = input("\n    Please select Ferry ID from 1 to 8: ")
+            if(Ferry_No == "001" or Ferry_No == "1"):
+                if(listE1 != [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("")
+                    print("       Ferry ID :001")
+                    print("--------------------------")
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE1[i])
+                    print("--------------------------")
+                    E1()
+                elif(listE1 == [[1 for j in range(cols)]for i in range(Erows)])and(listB1 == [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("The Ferry is full")
+                else:
+                    print(esrymsg)
+                    REV = input()
+                    if(REV != "B")and(REV != "b")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "B")or(REV == "b"):
+                        print("")
+                        print("       Ferry ID : 001")
+                        print("--------------------------")
+                        business()
+                        for i in range(2):
+                            print(" ",i+1,"-",listB1[i])
+                        print("--------------------------")
+                        B1()
+                    if(REV == "M")or(REV == "m"):
+                        print("Next trip leaves in 2 hours")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "002" or Ferry_No == "2"):
+                if(listE2 != [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("")
+                    print("       Ferry ID :002")
+                    print("--------------------------")
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE2[i])
+                    print("--------------------------")
+                    E2()
+                elif(listE2 == [[1 for j in range(cols)]for i in range(Erows)])and(listB2 == [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("The Ferry is full")
+                else:
+                    print(esrymsg)
+                    REV = input()
+                    if(REV != "B")and(REV != "b")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "B")or(REV == "b"):
+                        print("       Ferry ID : 002")
+                        print("--------------------------")
+                        business()
+                        for i in range(2):
+                            print(" ",i+1,"-",listB2[i])
+                        print("--------------------------")
+                        B2()
+                    if(REV == "M")or(REV == "m"):
+                        break
+                    break                       
+                break
+            if(Ferry_No == "003" or Ferry_No == "3"):
+                if(listE3 != [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("")
+                    print("       Ferry ID : 003")
+                    print("--------------------------")
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE3[i])
+                    print("--------------------------")
+                    E3()
+                elif(listE3 == [[1 for j in range(cols)]for i in range(Erows)])and(listB3 == [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("The Ferry is full")
+                else:
+                    print(esrymsg)
+                    REV = input()
+                    if(REV != "B")and(REV != "b")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "B")or(REV == "b"):
+                        print("       Ferry ID : 003")
+                        print("--------------------------")
+                        business()
+                        for i in range(2):
+                            print(" ",i+1,"-",listB3[i])
+                        print("--------------------------")
+                        B3()
+                    if(REV == "M")or(REV == "m"):
+                        print("Next trip leaves in 2 hours")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "004" or Ferry_No == "4"):
+                if(listE4 != [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("")
+                    print("       Ferry ID : 004")
+                    print("--------------------------")
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE4[i])
+                    print("--------------------------")
+                    E4()
+                elif(listE4 == [[1 for j in range(cols)]for i in range(Erows)])and(listB4 == [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("The Ferry is full")
+                else:
+                    print(esrymsg)
+                    REV = input()
+                    if(REV != "B")and(REV != "b")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "B")or(REV == "b"):
+                        print("       Ferry ID : 004")
+                        print("--------------------------")
+                        business()
+                        for i in range(2):
+                            print(" ",i+1,"-",listB4[i])
+                        print("--------------------------")
+                        B4()
+                    if(REV == "M")or(REV == "m"):
+                        print("No other trip after this trip")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "005" or Ferry_No == "5"):
+                if(listE5 != [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("")
+                    print("       Ferry ID : 005")
+                    print("--------------------------")
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE5[i])
+                    print("--------------------------")
+                    E5()
+                elif(listE5 == [[1 for j in range(cols)]for i in range(Erows)])and(listB5 == [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("The Ferry is full")
+                else:
+                    print(esrymsg)
+                    REV = input()
+                    if(REV != "B")and(REV != "b")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "B")or(REV == "b"):
+                        print("       Ferry ID : 005")
+                        print("--------------------------")
+                        business()
+                        for i in range(2):
+                            print(" ",i+1,"-",listB5[i])
+                        print("--------------------------")
+                        B5()
+                    if(REV == "M")or(REV == "m"):
+                        print("Next trip leaves in 2 hours")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "006" or Ferry_No == "6"):
+                if(listE6 != [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("")
+                    print("       Ferry ID : 006")
+                    print("--------------------------")
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE6[i])
+                    print("--------------------------")
+                    E6()
+                elif(listE6 == [[1 for j in range(cols)]for i in range(Erows)])and(listB6 == [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("The Ferry is full")
+                else:
+                    print(esrymsg)
+                    REV = input()
+                    if(REV != "B")and(REV != "b")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "B")or(REV == "b"):
+                        print("       Ferry ID : 006")
+                        print("--------------------------")
+                        business()
+                        for i in range(2):
+                            print(" ",i+1,"-",listB6[i])
+                        print("--------------------------")
+                        B6()
+                    if(REV == "M")or(REV == "m"):
+                        print("Next trip leaves in 2 hours")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "007" or Ferry_No == "7"):
+                if(listE7 != [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("")
+                    print("       Ferry ID : 007")
+                    print("--------------------------")
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE7[i])
+                    print("--------------------------")
+                    E7()
+                elif(listE7 == [[1 for j in range(cols)]for i in range(Erows)])and(listB7 == [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("The Ferry is full")
+                else:
+                    print(esrymsg)
+                    REV = input()
+                    if(REV != "B")and(REV != "b")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "B")or(REV == "b"):
+                        print("       Ferry ID : 007")
+                        print("--------------------------")
+                        business()
+                        for i in range(2):
+                            print(" ",i+1,"-",listB7[i])
+                        print("--------------------------")
+                        B7()
+                    if(REV == "M")or(REV == "m"):
+                        print("Next trip leaves in 2 hours")
+                        break
+                    break                       
+                break
+            if(Ferry_No == "008" or Ferry_No == "8"):
+                if(listE8 != [[1 for j in range(cols)]for i in range(Erows)]):
+                    print("")
+                    print("       Ferry ID : 008")
+                    print("--------------------------")
+                    economy()
+                    for i in range(8):
+                        print(" ",i+1,"-",listE8[i])
+                    print("--------------------------")
+                    E8()
+                elif(listE8 == [[1 for j in range(cols)]for i in range(Erows)])and(listB8 == [[1 for j in range(cols)]for i in range(Brows)]):
+                    print("The Ferry is full")
+                else:
+                    print(esrymsg)
+                    REV = input()
+                    if(REV != "B")and(REV != "b")and(REV != "M")and(REV != "m"):
+                        print("invalid input")
+                    if(REV == "B")or(REV == "b"):
+                        print("       Ferry ID : 008")
+                        print("--------------------------")
+                        business()
+                        for i in range(2):
+                            print(" ",i+1,"-",listB8[i])
+                        print("--------------------------")
+                        B8()
+                    if(REV == "M")or(REV == "m"):
+                        print("No other trip after this trip")
+                        break
+                    break                       
+                break
+            else:
+                print("invalid input!")
+            break
+        
+#choice of return main menu
+        elif(WE == "M" or WE == "m"):
+            break
+        
+#invalid input case       
+        else:
+            print("invalid input!")
+            print("\nPress B-to purchase ticket for Business Class")
+            print("Press E-to purchase ticket for Economy Class")
+            print("Press M-to return Main Menu")
+
+#print main menu and ask for input    
+def MainMenu():
+    while True:
+        print("          Main Menu")
+        print('''
+    FERRY TICKETING SYSTEM
+    P – to Purchase Ticket
+    V – to View Seating Arrangement
+    Q – to Quit the system''')
+        
+#open sub menu for purchasing ticket    
+        QW = input("\n    Please select option from above: ")
+        if(QW == "P") or (QW == "p"):
+            load()
+            SubMenu()
+            
+#print for viewing seat arrangement
+        elif(QW == "V") or (QW == "v"):
+            load()
+            print("    SEATING ARRANGEMENT MODULE")
+            print("\n    F - to select Ferry ID")
+            print("    T - to select Trip Time")
+
+            Option = input("\n    Please select option from above: ")
+            if(Option == "F" or Option=="f"):
+                Ferry_ID()
+                FerryID = input("\n    Please select Ferry ID from 001 to 008: ")
+                if(FerryID == "001" or FerryID == "1"):
+                    load()
+                    F1()
+                elif(FerryID == "002" or FerryID == "2"):
+                    load()
+                    F2()
+                elif(FerryID == "003" or FerryID == "3"):
+                    load()
+                    F3()
+                elif(FerryID == "004" or FerryID == "4"):
+                    load()
+                    F4()
+                elif(FerryID == "005" or FerryID == "5"):
+                    load()
+                    F5()
+                elif(FerryID == "006" or FerryID == "6"):
+                    load()
+                    F6()
+                elif(FerryID == "007" or FerryID == "7"):
+                    load()
+                    F7()
+                elif(FerryID == "008" or FerryID == "8"):
+                    load()
+                    F8()
+                else:
+                    print("Invalid Option!\n")
+                print("")
+        
+            elif(Option == "T" or Option=="t"):
+                trip_time()
+                Time_option = input("\n    Please select departure time, only the hour in 2 digits : ")
+                
+                if(Time_option == "10"):
+                    load()
+                    F1()
+                elif(Time_option == "12"):
+                    load()
+                    F2()
+                elif(Time_option == "02"):
+                    load()
+                    F3()
+                elif(Time_option == "04"):
+                    load()
+                    F4()
+                elif(Time_option == "11"):
+                    load()
+                    F5()
+                elif(Time_option == "01"):
+                    load()
+                    F6()
+                elif(Time_option == "03"):
+                    load()
+                    F7()
+                elif(Time_option == "05"):
+                    load()
+                    F8()
+                else:
+                    print("Invalid Option!\n")
+            else:
+                print("Invalid Option!\n")
+        
+#Exit the program
+        elif(QW == "Q") or (QW == "q"):
+            print("\n    The program is going to end and all data will be lost.")
+            quitask=str(input("    Confirm to exit?\n    Enter Y to confirm exit."))
+            if(quitask=="Y" or quitask=="y"):
+                print("    Exiting the program.\t")
+                time.sleep(3)
+                break
+            else:
+                print("    The program will continue running.")
+
+        else:
+            print("    Invalid Option!")
+            
+            
+       
+MainMenu()
